@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+
+import "/argparse"
+import "/sys"
+
+
+main = ->
+    parser = argparse.ArgumentParser description: "test parser"
+    parser.add_argument "--hello"
+                        default: "Hello"
+                        dest: "hello"
+                        help: "test arg"
+                        type: str
+    parser.add_argument "--world"
+                        default: "World"
+                        dest: "world"
+                        help: "test arg"
+                        type: str
+    args = parser.parse_args!
+    print args.hello args.world
+    0
+
+
+if __name__ == "__main__" => sys.exit main!
