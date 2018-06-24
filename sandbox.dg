@@ -4,6 +4,29 @@ import "/argparse"
 import "/sys"
 
 
+#: factorial
+#:
+#: :type n: int
+#: :rtype: int
+fact = n ->
+    if n < 0     => None
+       n == 0    => 1
+       otherwise => foldl1 (*) (1..(n + 1))
+
+
+#: fibonacci number
+#:
+#: :type n: int
+#: :rtype: int
+fibonacci = n ->
+    if n < 0     => None
+       n < 2     => n
+       otherwise => fibonacci (n - 1) + fibonacci (n - 2)
+
+
+#: main
+#:
+#: :rtype: int
 main = ->
     parser = argparse.ArgumentParser description: "test parser"
     parser.add_argument "--hello"
@@ -17,8 +40,20 @@ main = ->
                         help: "test arg"
                         type: str
     args = parser.parse_args!
+
     print args.hello args.world
+
+    ok =
+        for (a, b) in zip (1..6) (3..8) =>
+            print <| (str a) + ", " + (str b)
+    if ok =>
+        print "OK."
+
+    print <| fibonacci 3
+    print <| fact 5
+
     0
 
 
-if __name__ == "__main__" => sys.exit main!
+if __name__ == "__main__" =>
+    sys.exit main!
